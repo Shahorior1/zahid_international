@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Test - Zahid International</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 Search Functionality Test</h1>
+        <p>This page tests the search functionality for Zahid International travel website.</p>
+        
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testFlightSearch()">Test Flight Search</button>
+            <button class="test-btn" onclick="testHotelSearch()">Test Hotel Search</button>
+            <button class="test-btn" onclick="testDirectSearch()">Test Direct Search</button>
+        </div>
+        
+        <div id="status"></div>
+        
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Click "Test Flight Search" to simulate a flight search</li>
+            <li>Click "Test Hotel Search" to simulate a hotel search</li>
+            <li>Click "Test Direct Search" to directly show search results</li>
+            <li>Check if the search results modal appears with flight cards</li>
+            <li>Test the filters in the left sidebar</li>
+            <li>Test the "Select" buttons on flight cards</li>
+        </ol>
+        
+        <h3>Expected Behavior:</h3>
+        <ul>
+            <li>✅ Search button should show "Searching..." for 2 seconds</li>
+            <li>✅ Modal should appear with flight search results</li>
+            <li>✅ Left sidebar should have filters (Price, Baggage, Airlines, etc.)</li>
+            <li>✅ Flight cards should show detailed flight information</li>
+            <li>✅ "Select" buttons should work and show success message</li>
+            <li>✅ Modal should close when clicking outside or pressing Escape</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function showStatus(message, type = 'success') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function testFlightSearch() {
+            showStatus('Testing flight search...', 'success');
+            
+            // Simulate form submission
+            setTimeout(() => {
+                showSuccessMessage('Searching for flights...');
+                
+                setTimeout(() => {
+                    showSearchResults('flights');
+                    showStatus('✅ Flight search test completed! Check the modal above.', 'success');
+                }, 2000);
+            }, 100);
+        }
+        
+        function testHotelSearch() {
+            showStatus('Testing hotel search...', 'success');
+            
+            setTimeout(() => {
+                showSuccessMessage('Searching for hotels...');
+                
+                setTimeout(() => {
+                    showSearchResults('hotels');
+                    showStatus('✅ Hotel search test completed! Check the modal above.', 'success');
+                }, 2000);
+            }, 100);
+        }
+        
+        function testDirectSearch() {
+            showStatus('Testing direct search results...', 'success');
+            showSearchResults('flights');
+            showStatus('✅ Direct search test completed! Check the modal above.', 'success');
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            showStatus('✅ Page loaded successfully! Ready to test search functionality.', 'success');
+        });
+    </script>
+</body>
+</html>

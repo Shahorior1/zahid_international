@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Form Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .booking-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+        .booking-form {
+            display: none;
+        }
+        .booking-form.active {
+            display: block;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .form-group:hover {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        .form-group.active {
+            border-color: #007bff;
+            background-color: #e3f2fd;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .main-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .form-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        .hotel-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 5px;
+        }
+        .hotel-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hotel-option:hover {
+            background-color: #f8f9fa;
+        }
+        .hotel-option-icon {
+            font-size: 18px;
+            color: #6c757d;
+            width: 24px;
+            text-align: center;
+        }
+        .hotel-option-details {
+            flex: 1;
+        }
+        .hotel-option-main {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .hotel-option-sub {
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.3;
+        }
+        .search-for-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .search-for-label {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .search-for-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .search-for-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .checkbox-custom {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+            position: relative;
+        }
+        input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 1px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+        .search-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .search-btn:hover {
+            background: #0056b3;
+        }
+        .debug-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Hotel Form Debug Test</h1>
+        
+        <div class="booking-tabs">
+            <button class="tab active" data-tab="flight">
+                <span>✈</span> Flight
+            </button>
+            <button class="tab" data-tab="hotel">
+                <span>🏢</span> Hotel
+            </button>
+        </div>
+        
+        <!-- Flight Form -->
+        <form class="booking-form flight-form active" id="flightForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>FROM</label>
+                    <div class="main-value">Dhaka</div>
+                    <div class="form-desc">DAC, Hazrat Shahjalal International Airport</div>
+                </div>
+                <div class="form-group">
+                    <label>TO</label>
+                    <div class="main-value">Cox's Bazar</div>
+                    <div class="form-desc">CXB, Cox's Bazar Airport</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>DEPARTURE DATE</label>
+                    <div class="main-value">26 <span class="date-month">Aug'25</span></div>
+                    <div class="form-desc">Tuesday</div>
+                </div>
+                <div class="form-group">
+                    <label>RETURN DATE</label>
+                    <div class="main-value">27 <span class="date-month">Aug'25</span></div>
+                    <div class="form-desc">Wednesday</div>
+                </div>
+            </div>
+            <button type="submit" class="search-btn">Search Flights</button>
+        </form>
+        
+        <!-- Hotel Form -->
+        <form class="booking-form hotel-form" id="hotelForm">
+            <div class="form-row">
+                <div class="form-group compact">
+                    <label>CITY/HOTEL/RESORT/AREA</label>
+                    <div class="main-value">Cox's Bazar</div>
+                    <div class="form-desc">Bangladesh</div>
+                </div>
+                <div class="form-group compact">
+                    <label>CHECK IN</label>
+                    <div class="main-value">31 <span class="date-month">Jul'25</span></div>
+                    <div class="form-desc">Thursday</div>
+                </div>
+                <div class="form-group compact">
+                    <label>CHECK OUT</label>
+                    <div class="main-value">01 <span class="date-month">Aug'25</span></div>
+                    <div class="form-desc">Friday</div>
+                </div>
+                <div class="form-group compact">
+                    <label>ROOMS & GUESTS</label>
+                    <div class="main-value">1 Room, 2 Guests</div>
+                    <div class="form-desc">2 Adults</div>
+                </div>
+            </div>
+            
+            <div class="search-for-section">
+                <div class="search-for-label">Search for</div>
+                <div class="search-for-options">
+                    <label class="search-for-option">
+                        <input type="checkbox" name="searchFor" value="business">
+                        <span class="checkbox-custom"></span>
+                        <span class="option-label">Business</span>
+                    </label>
+                    <label class="search-for-option">
+                        <input type="checkbox" name="searchFor" value="couples">
+                        <span class="checkbox-custom"></span>
+                        <span class="option-label">Couples</span>
+                    </label>
+                    <label class="search-for-option">
+                        <input type="checkbox" name="searchFor" value="families">
+                        <span class="checkbox-custom"></span>
+                        <span class="option-label">Families</span>
+                    </label>
+                    <label class="search-for-option">
+                        <input type="checkbox" name="searchFor" value="friends">
+                        <span class="checkbox-custom"></span>
+                        <span class="option-label">Friends</span>
+                    </label>
+                    <label class="search-for-option">
+                        <input type="checkbox" name="searchFor" value="solo">
+                        <span class="checkbox-custom"></span>
+                        <span class="option-label">Solo</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="search-btn">Search Hotels</button>
+        </form>
+        
+        <div class="debug-info" id="debugInfo">
+            <strong>Debug Information:</strong><br>
+            <span id="debugText">Click on hotel tab and form fields to test functionality...</span>
+        </div>
+    </div>
+
+    <script>
+        // Debug function
+        function updateDebug(text) {
+            document.getElementById('debugText').textContent = text;
+            console.log(text);
+        }
+
+        // Tab switching
+        function setupBookingTabs() {
+            const tabs = document.querySelectorAll('.booking-tabs .tab');
+            const flightForm = document.getElementById('flightForm');
+            const hotelForm = document.getElementById('hotelForm');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const tabType = this.dataset.tab;
+                    updateDebug(`Tab switched to: ${tabType}`);
+                    
+                    if (tabType === 'flight') {
+                        flightForm.style.display = 'block';
+                        hotelForm.style.display = 'none';
+                        flightForm.classList.add('active');
+                        hotelForm.classList.remove('active');
+                    } else if (tabType === 'hotel') {
+                        hotelForm.style.display = 'block';
+                        flightForm.style.display = 'none';
+                        hotelForm.classList.add('active');
+                        flightForm.classList.remove('active');
+                        updateDebug('Hotel form is now visible');
+                    }
+                });
+            });
+        }
+
+        // Hotel form functionality
+        function setupHotelForm() {
+            const hotelForm = document.getElementById('hotelForm');
+            
+            // Setup city selection
+            setupHotelCitySelection();
+            setupHotelDateSelection();
+            setupHotelRoomsGuests();
+            
+            // Form submission
+            hotelForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateDebug('Hotel form submitted!');
+                
+                const selectedOptions = document.querySelectorAll('input[name="searchFor"]:checked');
+                const selectedValues = Array.from(selectedOptions).map(option => option.value);
+                updateDebug(`Selected options: ${selectedValues.join(', ')}`);
+            });
+        }
+
+        function setupHotelCitySelection() {
+            const cityField = document.querySelector('.hotel-form .form-group:first-child');
+            if (!cityField) {
+                updateDebug('ERROR: City field not found');
+                return;
+            }
+            
+            const mainValue = cityField.querySelector('.main-value');
+            const formDesc = cityField.querySelector('.form-desc');
+            
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'hotel-dropdown city-dropdown';
+            dropdown.style.display = 'none';
+            
+            const cities = [
+                { name: "Cox's Bazar", country: 'Bangladesh', type: 'Resort Area' },
+                { name: 'Dhaka', country: 'Bangladesh', type: 'Capital City' },
+                { name: 'Chittagong', country: 'Bangladesh', type: 'Port City' },
+                { name: 'Dubai', country: 'UAE', type: 'Metropolitan City' },
+                { name: 'Singapore', country: 'Singapore', type: 'City State' }
+            ];
+            
+            dropdown.innerHTML = cities.map(city => `
+                <div class="hotel-option" data-city="${city.name}" data-country="${city.country}">
+                    <div class="hotel-option-icon">🏨</div>
+                    <div class="hotel-option-details">
+                        <div class="hotel-option-main">${city.name}</div>
+                        <div class="hotel-option-sub">${city.country} • ${city.type}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            cityField.appendChild(dropdown);
+            
+            // Make field clickable
+            cityField.addEventListener('click', function(e) {
+                if (e.target.closest('.hotel-dropdown')) return;
+                
+                const isVisible = dropdown.style.display === 'block';
+                closeAllHotelDropdowns();
+                
+                if (!isVisible) {
+                    dropdown.style.display = 'block';
+                    cityField.classList.add('active');
+                    updateDebug('City dropdown opened');
+                }
+            });
+            
+            // Handle option selection
+            dropdown.addEventListener('click', function(e) {
+                const option = e.target.closest('.hotel-option');
+                if (option) {
+                    const city = option.dataset.city;
+                    const country = option.dataset.country;
+                    
+                    mainValue.textContent = city;
+                    formDesc.textContent = country;
+                    
+                    dropdown.style.display = 'none';
+                    cityField.classList.remove('active');
+                    updateDebug(`City selected: ${city}, ${country}`);
+                }
+            });
+        }
+
+        function setupHotelDateSelection() {
+            const checkInField = document.querySelector('.hotel-form .form-group:nth-child(2)');
+            const checkOutField = document.querySelector('.hotel-form .form-group:nth-child(3)');
+            
+            [checkInField, checkOutField].forEach(field => {
+                field.addEventListener('click', function() {
+                    const isCheckIn = this === checkInField;
+                    updateDebug(`${isCheckIn ? 'Check-in' : 'Check-out'} field clicked`);
+                    
+                    // Create date picker
+                    const datePicker = document.createElement('input');
+                    datePicker.type = 'date';
+                    datePicker.style.position = 'absolute';
+                    datePicker.style.top = '0';
+                    datePicker.style.left = '0';
+                    datePicker.style.width = '100%';
+                    datePicker.style.height = '100%';
+                    datePicker.style.opacity = '0';
+                    datePicker.style.cursor = 'pointer';
+                    
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    
+                    if (isCheckIn) {
+                        datePicker.value = today.toISOString().split('T')[0];
+                    } else {
+                        datePicker.value = tomorrow.toISOString().split('T')[0];
+                    }
+                    
+                    this.appendChild(datePicker);
+                    
+                    datePicker.addEventListener('change', function() {
+                        const selectedDate = new Date(this.value);
+                        const day = selectedDate.getDate();
+                        const month = selectedDate.toLocaleDateString('en-US', { month: 'short' });
+                        const year = selectedDate.getFullYear().toString().slice(-2);
+                        const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+                        
+                        const mainValue = field.querySelector('.main-value');
+                        const formDesc = field.querySelector('.form-desc');
+                        
+                        mainValue.innerHTML = `${day} <span class="date-month">${month}'${year}</span>`;
+                        formDesc.textContent = dayName;
+                        
+                        this.remove();
+                        updateDebug(`Date selected: ${day} ${month}'${year} (${dayName})`);
+                    });
+                    
+                    datePicker.click();
+                });
+            });
+        }
+
+        function setupHotelRoomsGuests() {
+            const roomsField = document.querySelector('.hotel-form .form-group:nth-child(4)');
+            if (!roomsField) {
+                updateDebug('ERROR: Rooms field not found');
+                return;
+            }
+            
+            const mainValue = roomsField.querySelector('.main-value');
+            const formDesc = roomsField.querySelector('.form-desc');
+            
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'hotel-dropdown rooms-dropdown';
+            dropdown.style.display = 'none';
+            
+            const roomOptions = [
+                { rooms: 1, guests: 1, adults: 1, children: 0 },
+                { rooms: 1, guests: 2, adults: 2, children: 0 },
+                { rooms: 1, guests: 3, adults: 2, children: 1 },
+                { rooms: 2, guests: 2, adults: 2, children: 0 },
+                { rooms: 2, guests: 4, adults: 2, children: 2 }
+            ];
+            
+            dropdown.innerHTML = roomOptions.map(option => `
+                <div class="hotel-option" data-rooms="${option.rooms}" data-guests="${option.guests}" data-adults="${option.adults}" data-children="${option.children}">
+                    <div class="hotel-option-icon">🛏️</div>
+                    <div class="hotel-option-details">
+                        <div class="hotel-option-main">${option.rooms} Room${option.rooms > 1 ? 's' : ''}, ${option.guests} Guest${option.guests > 1 ? 's' : ''}</div>
+                        <div class="hotel-option-sub">${option.adults} Adult${option.adults > 1 ? 's' : ''}${option.children > 0 ? `, ${option.children} Child${option.children > 1 ? 'ren' : ''}` : ''}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            roomsField.appendChild(dropdown);
+            
+            // Make field clickable
+            roomsField.addEventListener('click', function(e) {
+                if (e.target.closest('.hotel-dropdown')) return;
+                
+                const isVisible = dropdown.style.display === 'block';
+                closeAllHotelDropdowns();
+                
+                if (!isVisible) {
+                    dropdown.style.display = 'block';
+                    roomsField.classList.add('active');
+                    updateDebug('Rooms dropdown opened');
+                }
+            });
+            
+            // Handle option selection
+            dropdown.addEventListener('click', function(e) {
+                const option = e.target.closest('.hotel-option');
+                if (option) {
+                    const rooms = option.dataset.rooms;
+                    const guests = option.dataset.guests;
+                    const adults = option.dataset.adults;
+                    const children = option.dataset.children;
+                    
+                    mainValue.textContent = `${rooms} Room${rooms > 1 ? 's' : ''}, ${guests} Guest${guests > 1 ? 's' : ''}`;
+                    formDesc.textContent = `${adults} Adult${adults > 1 ? 's' : ''}${children > 0 ? `, ${children} Child${children > 1 ? 'ren' : ''}` : ''}`;
+                    
+                    dropdown.style.display = 'none';
+                    roomsField.classList.remove('active');
+                    updateDebug(`Rooms selected: ${rooms} room(s), ${guests} guest(s)`);
+                }
+            });
+        }
+
+        function closeAllHotelDropdowns() {
+            document.querySelectorAll('.hotel-dropdown').forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+            document.querySelectorAll('.hotel-form .form-group').forEach(field => {
+                field.classList.remove('active');
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.hotel-form .form-group')) {
+                closeAllHotelDropdowns();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDebug('DOM loaded, initializing...');
+            setupBookingTabs();
+            setupHotelForm();
+            updateDebug('Initialization complete. Click on Hotel tab to test.');
+        });
+    </script>
+</body>
+</html>

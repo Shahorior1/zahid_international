@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results Test - Zahid International</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .test-btn {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+        }
+        .test-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #003366;
+        }
+        .test-info h3 {
+            margin-top: 0;
+            color: #003366;
+        }
+        .test-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .test-info li {
+            margin: 5px 0;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Search Results Test</h1>
+        <p>Test the new search results modal functionality:</p>
+        
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testFlightSearch()">Test Flight Search</button>
+            <button class="test-btn" onclick="testHotelSearch()">Test Hotel Search</button>
+        </div>
+        
+        <div class="test-info">
+            <h3>Features to Test:</h3>
+            <ul>
+                <li>Click "Test Flight Search" to see flight results in card format</li>
+                <li>Click "Test Hotel Search" to see hotel results in card format</li>
+                <li>Switch between Flights and Hotels tabs</li>
+                <li>Click "Select Flight" or "Select Hotel" buttons</li>
+                <li>Click outside the modal or press Escape to close</li>
+                <li>Test responsive design on mobile devices</li>
+            </ul>
+        </div>
+        
+        <div class="test-info">
+            <h3>What You'll See:</h3>
+            <ul>
+                <li><strong>Flight Cards:</strong> Airline info, flight times, duration, price, and select button</li>
+                <li><strong>Hotel Cards:</strong> Hotel image, name, location, rating, amenities, price, and select button</li>
+                <li><strong>Responsive Design:</strong> Cards adapt to different screen sizes</li>
+                <li><strong>Smooth Animations:</strong> Cards slide in with staggered timing</li>
+                <li><strong>Interactive Elements:</strong> Hover effects and button feedback</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function testFlightSearch() {
+            showSearchResults('flights');
+        }
+        
+        function testHotelSearch() {
+            showSearchResults('hotels');
+        }
+    </script>
+</body>
+</html> 

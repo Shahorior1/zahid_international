@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahid International - Travel Agency</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="akij-header">
+        <div class="akij-container top-nav-container">
+            <div class="top-nav-left">
+                <img src="image/logo.png" alt="Zahid International Logo" class="brand-logo">
+                <div class="brand-name">Zahid International</div>
+            </div>
+            <div class="top-nav-right navbar-right">
+                <button class="currency-select" id="currencySelect" aria-haspopup="dialog" aria-expanded="false">
+                    <span class="currency-code-display">BDT</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <a href="#" class="sign-in-link" aria-label="Sign in">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Selection Modal -->
+    <div class="language-modal" id="languageModal">
+        <div class="language-modal-content">
+            <h3>Choose Language</h3>
+            <div class="language-options">
+                <button class="language-option selected" data-language="english">
+                    <span class="language-name">English</span>
+                    <span class="language-native">English</span>
+                </button>
+                <button class="language-option" data-language="arabic">
+                    <span class="language-name">Arabic</span>
+                    <span class="language-native">العربية</span>
+                </button>
+                <button class="language-option" data-language="bengali">
+                    <span class="language-name">Bengali</span>
+                    <span class="language-native">বাংলা</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Region and Currency Popup -->
+    <div class="region-currency-popup" id="regionCurrencyPopup">
+        <div class="popup-content">
+            <div class="popup-section">
+                <h3>Region</h3>
+                <div class="region-options">
+                    <div class="region-option selected" data-region="bangladesh">
+                        <span class="flag">🇧🇩</span>
+                        <span class="region-name">Bangladesh</span>
+                        <span class="checkmark">✓</span>
+                    </div>
+                    <div class="region-option" data-region="pakistan">
+                        <span class="flag">🇵🇰</span>
+                        <span class="region-name">Pakistan</span>
+                        <span class="checkmark">✓</span>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-section">
+                <h3>Currency</h3>
+                <div class="currency-options">
+                    <div class="currency-option selected" data-currency="bdt">
+                        <span class="currency-code">BDT</span>
+                        <span class="checkmark">✓</span>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-btn" id="applyBtn">Apply</button>
+        </div>
+    </div>
+
+    <section id="home" class="hero-image-bg">
+        <div class="booking-card compact">
+            <div class="booking-tabs">
+                <button class="tab active" data-tab="flight">
+                    <span class="tab-icon">✈</span>
+                    <span class="tab-label">Flight</span>
+                </button>
+                <button class="tab" data-tab="hotel">
+                    <span class="tab-icon">🏢</span>
+                    <span class="tab-label">Hotel</span>
+                </button>
+                <button class="tab" data-tab="tour">
+                    <span class="tab-icon">🏝</span>
+                    <span class="tab-label">Tour</span>
+                </button>
+                <button class="tab" data-tab="visa">
+                    <span class="tab-icon">📋</span>
+                    <span class="tab-label">Visa</span>
+                </button>
+            </div>
+            
+            <!-- Flight Form (Active by default) -->
+            <form class="booking-form flight-form active" id="flightForm">
+                <div class="flight-options">
+                    <div class="option-dropdown">
+                        <select id="tripType" class="flight-select">
+                            <option value="one">One Way</option>
+                            <option value="round">Round Trip</option>
+                            <option value="multi">Multi City</option>
+                        </select>
+                    </div>
+                    <div class="option-dropdown">
+                        <select id="passengerCount" class="flight-select">
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                            <option value="5">5 Passengers</option>
+                            <option value="6">6 Passengers</option>
+                        </select>
+                    </div>
+                    <div class="option-dropdown">
+                        <select id="classType" class="flight-select">
+                            <option value="economy">Economy</option>
+                            <option value="business">Business</option>
+                            <option value="first">First Class</option>
+                            <option value="premium">Premium Economy</option>
+                        </select>
+                    </div>
+                    <div class="option-dropdown">
+                        <select id="airlineType" class="flight-select">
+                            <option value="any">Any Airlines</option>
+                            <option value="biman">Biman Bangladesh</option>
+                            <option value="novoair">NOVOAIR</option>
+                            <option value="usbair">US-Bangla Airlines</option>
+                            <option value="emirates">Emirates</option>
+                            <option value="qatar">Qatar Airways</option>
+                            <option value="etihad">Etihad Airways</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group compact">
+                        <label>FROM</label>
+                        <div class="location-input-container">
+                            <div class="search-input-wrapper">
+                                <i class="search-icon">🔍</i>
+                                <input type="text" class="location-input" id="fromLocation" placeholder="Airport code, city, name or country" autocomplete="off">
+                            </div>
+                            <div class="location-dropdown" id="fromDropdown"></div>
+                        </div>
+                        <div class="form-desc" id="fromDesc">DAC, Hazrat Shahjalal International Ai...</div>
+                    </div>
+                    <div class="form-group swap-arrow compact">
+                        <span>⇄</span>
+                    </div>
+                    <div class="form-group compact">
+                        <label>TO</label>
+                        <div class="location-input-container">
+                            <div class="search-input-wrapper">
+                                <i class="search-icon">🔍</i>
+                                <input type="text" class="location-input" id="toLocation" placeholder="Airport code, city, name or country" autocomplete="off">
+                            </div>
+                            <div class="location-dropdown" id="toDropdown"></div>
+                        </div>
+                        <div class="form-desc" id="toDesc">CXB, Cox's Bazar Airport</div>
+                    </div>
+                    <div class="form-group compact">
+                        <label>DEPARTURE DATE</label>
+                        <input type="date" id="departureDate" class="date-input" value="2025-08-26">
+                        <div class="form-desc">August 26, 2025</div>
+                    </div>
+                    <div class="form-group compact">
+                        <label>RETURN DATE</label>
+                        <input type="date" id="returnDate" class="date-input" value="2025-08-27">
+                        <div class="form-desc">August 27, 2025</div>
+                    </div>
+                </div>
+                <div class="form-row form-row-btn compact">
+                    <button type="submit" class="search-btn compact">
+                        <i class="search-icon-btn">🔍</i>
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Hotel Form (Hidden by default) -->
+            <form class="booking-form hotel-form" id="hotelForm" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group compact">
+                        <label>CITY/HOTEL/RESORT/AREA</label>
+                        <div class="main-value">Cox's Bazar</div>
+                        <div class="form-desc">Bangladesh</div>
+                    </div>
+                    <div class="form-group compact">
+                        <label>CHECK IN</label>
+                        <div class="main-value">31 <span class="date-month">Jul'25</span></div>
+                        <div class="form-desc">Thursday</div>
+                    </div>
+                    <div class="form-group compact">
+                        <label>CHECK OUT</label>
+                        <div class="main-value">01 <span class="date-month">Aug'25</span></div>
+                        <div class="form-desc">Friday</div>
+                    </div>
+                    <div class="form-group compact">
+                        <label>ROOMS & GUESTS</label>
+                        <div class="main-value">1 Room, 2 Guests</div>
+                        <div class="form-desc">2 Adults</div>
+                    </div>
+                </div>
+                
+                <div class="search-for-section">
+                    <div class="search-for-label">Search for</div>
+                    <div class="search-for-options">
+                        <label class="search-for-option">
+                            <input type="checkbox" name="searchFor" value="business">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-label">Business</span>
+                        </label>
+                        <label class="search-for-option">
+                            <input type="checkbox" name="searchFor" value="couples">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-label">Couples</span>
+                        </label>
+                        <label class="search-for-option">
+                            <input type="checkbox" name="searchFor" value="families">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-label">Families</span>
+                        </label>
+                        <label class="search-for-option">
+                            <input type="checkbox" name="searchFor" value="friends">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-label">Friends</span>
+                        </label>
+                        <label class="search-for-option">
+                            <input type="checkbox" name="searchFor" value="solo">
+                            <span class="checkbox-custom"></span>
+                            <span class="option-label">Solo</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-row form-row-btn compact">
+                    <button type="submit" class="search-btn compact">Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Promotional Carousel Section -->
+    <section class="promotional-carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-header">
+                <div class="departure-date">Departure August 26, 2025</div>
+            </div>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-arrow carousel-prev" aria-label="Previous slide">
+                    <span class="arrow-icon">‹</span>
+                </button>
+                
+                <div class="carousel-slides" role="region" aria-label="Promotional slider">
+                    <div class="carousel-slide active">
+                        <div class="slide-image">
+                            <img src="image/coxs.webp" alt="Holiday resort" />
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="slide-image">
+                            <img src="image/plan.webp" alt="Book your flight" />
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="slide-image">
+                            <img src="image/bazaer.webp" alt="Cox's Bazar" />
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="slide-image">
+                            <img src="image/omra.webp" alt="Umrah" />
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-arrow carousel-next" aria-label="Next slide">
+                    <span class="arrow-icon">›</span>
+                </button>
+            </div>
+            
+            <div class="carousel-indicators"></div>
+        </div>
+    </section>
+
+    <!-- Account Slider Section -->
+    <section class="account-slider-section">
+        <div class="mobile-slider">
+            <!-- Card 1 -->
+            <div class="card">
+                <img src="image/flight-web-3.webp" alt="Flight Booking" />
+                <div class="card-content">
+                    <h2>কিভাবে ফ্লাইট বুক করবেন?</h2>
+                    <button class="btn">▷ দেখুন</button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <img src="image/hotel-web-3.webp" alt="Hotel Booking" />
+                <div class="card-content">
+                    <h2>কিভাবে হোটেল বুক করবেন?</h2>
+                    <button class="btn">▷ দেখুন</button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <img src="image/discount-web-3.webp" alt="Special Discounts" />
+                <div class="card-content">
+                    <h2>কিভাবে ডিসকাউন্ট পাবেন?</h2>
+                    <button class="btn">▷ দেখুন</button>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card">
+                <img src="image/account-web-3.webp" alt="Account Management" />
+                <div class="card-content">
+                    <h2>কিভাবে একাউন্ট তৈরি করবেন?</h2>
+                    <button class="btn">▷ দেখুন</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banner with add.png -->
+    <section class="promo-banner-add">
+        <div class="banner-add-container">
+            <img src="image/add.png" alt="Special Offer" class="banner-add-image">
+        </div>
+    </section>
+
+
+    <!-- Hot Deals Section -->
+    <section class="hot-deals-section">
+        <div class="hot-deals-container">
+            <h2 class="hot-deals-title">Hot Deals</h2>
+            
+            <div class="deals-tabs">
+                <button class="deal-tab active">All</button>
+                <button class="deal-tab">Flight</button>
+                <button class="deal-tab">Hotel</button>
+                <button class="deal-tab">Tour</button>
+                <button class="deal-tab">Others</button>
+            </div>
+            
+            <div class="deals-cards">
+                <div class="deal-card">
+                    <div class="deal-card-top">
+                        <div class="deal-banner">Up to 18% Discount*</div>
+                        <div class="deal-logos">
+                            <img src="image/bks.jpg" alt="City Bank" class="bank-logo">
+                            <img src="image/campaign_AMEX1825.jpg" alt="AMEX" class="bank-logo">
+                        </div>
+                    </div>
+                    <div class="deal-card-bottom">
+                        <h3 class="deal-title">Up to 18% Discount on Int'l Flight Bookings</h3>
+                        <div class="deal-description">
+                            On base fare, for City Bank American Express Platinum & Gold credit cards. Till 31 Dec'25.
+                        </div>
+                        <div class="deal-footer">
+                            <div class="coupon-code">AMEX1825</div>
+                            <button class="learn-more-btn">
+                                <span>Learn More</span>
+                                <span class="arrow-icon">></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-card-top">
+                        <div class="deal-banner">Up to 14% Discount*</div>
+                        <div class="deal-logos">
+                            <img src="image/ebl.jpg" alt="EBL" class="bank-logo">
+                        </div>
+                    </div>
+                    <div class="deal-card-bottom">
+                        <h3 class="deal-title">On Int'l Flight Bookings</h3>
+                        <div class="deal-description">
+                            On base fare, for all EBL Visa credit cards. Till 5 August 2025.
+                        </div>
+                        <div class="deal-footer">
+                            <div class="coupon-code">EINT0725</div>
+                            <button class="learn-more-btn">
+                                <span>Learn More</span>
+                                <span class="arrow-icon">></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="deal-card">
+                    <div class="deal-card-top">
+                        <div class="deal-banner">Up to BDT 4,000 Cashback*</div>
+                        <div class="deal-logos">
+                            <img src="image/bks_.jpg" alt="bKash" class="bank-logo">
+                        </div>
+                    </div>
+                    <div class="deal-card-bottom">
+                        <h3 class="deal-title">On bKash Payments</h3>
+                        <div class="deal-description">
+                            Up to BDT 4,000 Cashback for bKash payments. Till 31 July 2025.
+                        </div>
+                        <div class="deal-footer">
+                            <div class="coupon-code">BFH0725</div>
+                            <button class="learn-more-btn">
+                                <span>Learn More</span>
+                                <span class="arrow-icon">></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="service-list">
+            <div class="service-item">
+                <h3>Flight Booking</h3>
+                <p>Best deals on domestic and international flights.</p>
+            </div>
+            <div class="service-item">
+                <h3>Hotel Reservations</h3>
+                <p>Comfortable stays at top-rated hotels worldwide.</p>
+            </div>
+            <div class="service-item">
+                <h3>Tour Packages</h3>
+                <p>Customizable tour packages for every traveler.</p>
+            </div>
+            <div class="service-item">
+                <h3>Visa Assistance</h3>
+                <p>Expert help with visa applications and documentation.</p>
+            </div>
+            <div class="service-item">
+                <h3>Hajj & Umrah</h3>
+                <p>Complete Hajj and Umrah packages with spiritual guidance.</p>
+            </div>
+            <div class="service-item">
+                <h3>Student Visa Consultancy</h3>
+                <p>Professional guidance for student visa applications worldwide.</p>
+            </div>
+            <div class="service-item">
+                <h3>Work Visa Process</h3>
+                <p>Comprehensive work visa services for international employment.</p>
+            </div>
+        </div>
+    </section>
+    <section id="destinations" class="destinations">
+        <h2>Popular Destinations</h2>
+        <div class="destination-list">
+            <div class="destination-item">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Paris">
+                <h3>Paris</h3>
+            </div>
+            <div class="destination-item">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Maldives">
+                <h3>Maldives</h3>
+            </div>
+            <div class="destination-item">
+                <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" alt="Dubai">
+                <h3>Dubai</h3>
+            </div>
+            <div class="destination-item">
+                <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=400&q=80" alt="Bangkok">
+                <h3>Bangkok</h3>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <div id="formMessage"></div>
+    </section>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-heading">Discover</h3>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <a href="#" class="footer-link">Home</a>
+                        <a href="#" class="footer-link">Terms</a>
+                        <a href="#" class="footer-link">Talent & Culture</a>
+                        <a href="#" class="footer-link">About Us</a>
+                    </div>
+                    <div class="footer-links-column">
+                        <a href="#" class="footer-link">Refund Policy</a>
+                        <a href="#" class="footer-link">EMI Policy</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-heading">Payment Methods</h3>
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <div class="payment-logo visa-logo">
+                            <div class="logo-wordmark">VISA</div>
+                        </div>
+                    </div>
+
+                    <div class="payment-method">
+                        <div class="payment-logo mastercard-logo">
+                            <div class="logo-circles">
+                                <div class="circle red"></div>
+                                <div class="circle orange"></div>
+                            </div>
+                            <div class="logo-wordmark">Mastercard</div>
+                        </div>
+                    </div>
+
+
+                    <div class="payment-method">
+                        <div class="payment-logo dbbl-logo">
+                            <div class="logo-wordmark">DBBL</div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-logo takapay-logo">
+                            <div class="logo-wordmark">TakaPay</div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-logo bkash-logo">
+                            <div class="logo-wordmark">bKash</div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-logo nagad-logo">
+                            <div class="logo-wordmark">নগদ</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-heading">Need Help?</h3>
+                <p class="footer-text">We're here for you 24/7! Reach out to us through Messenger or call anytime, day or night, for the support you need.</p>
+                <h4 class="footer-subheading">Experience Center</h4>
+                <p class="footer-text">Sheltech Ayaan, House 58, Road 6 & 11, Block C, Level 2, Banani, Dhaka</p>
+            </div>
+
+            <!-- Offices -->
+            <div class="footer-section">
+                <h3 class="footer-heading">Offices</h3>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4 class="footer-subheading">Narayanganj Office</h4>
+                        <p class="footer-text">Nabiganj Road,<br>Bandar, Narayanganj-1412.</p>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4 class="footer-subheading">Dhaka Office</h4>
+                        <p class="footer-text">Zaman Tower, 37/2, Purana Paltan, Level-6,<br>Culvert Road, Dhaka-1000.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">Contact</h3>
+                <p class="footer-text"><strong>Owner:</strong> Jahid Ahmed</p>
+                <p class="footer-text"><strong>Hotline:</strong> 01731-737861, 01533677427</p>
+                <p class="footer-text"><strong>E-mail:</strong> zahidtravels2010@gmail.com</p>
+                <div class="social-media">
+                    <a href="#" class="social-icon">
+                        <span class="social-icon-text">f</span>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <span class="social-icon-text">▶</span>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <span class="social-icon-text">📷</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">🕊️</span>
+                    <span class="logo-text">zahidinternational</span>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; Copyright Zahid International Ltd.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 
